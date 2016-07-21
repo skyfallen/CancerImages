@@ -1,6 +1,6 @@
-Study project at Lviv Data Science Summer School 
+#Study project at Lviv Data Science Summer School 
 
-Predicting ratio of cancerous cells in breast tissue images
+##Predicting ratio of cancerous cells in breast tissue images
 
 Domain: Bioinformatics, Deep learning
 
