@@ -14,3 +14,9 @@ matching<-read.table("data/labels/info_scorings_filtered.csv", header = TRUE)
 dataset$Label = matching$newLabel[which(matching$pic %in% rownames(dataset))]
 
 
+library(caret)
+# nearZeroVar(dataset)
+dataset <- dataset[,-nearZeroVar(dataset)]
+# dim(dataset)
+
+write.table(dataset, file="data/labels/workingMatrix.csv")
