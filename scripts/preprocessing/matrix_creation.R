@@ -1,20 +1,16 @@
-#START
-#source("http://bioconductor.org/biocLite.R")
-#biocLite("EBImage")
 library(EBImage)
 
-setwd("data/images/resize256") #directory with images
-
 dataset <- c()
-
-dataset <- t(sapply(list.files(pattern = "^[0-9, _]*\\.jpg$"), function(file){ #just use someee regular expressions ;)
-  message(file)
-  x <-  readImage(file)
-  x_gray <- channel(x, "gray")
-  return(as.vector(t(as.array(x_gray))))
-}))
-
-setwd("../../..")
-
+dataset <- t(sapply(list.files(path = "data/images/resize256", 
+                               pattern = "^[0-9, _]*\\.jpg$", full.names = TRUE), function(file){ #just use someee regular expressions ;)
+                                       message(file)
+                                       x <-  readImage(file)
+                                       x_gray <- channel(x, "gray")
+                                       return(as.vector(t(as.array(x_gray))))
+                               }))
+rownames(dataset) = sub('.*/', '', rownames(dataset))
+dataset = as.data.frame(dataset)
+matching<-read.table("data/labels/info_scorings_filtered.csv", header = TRUE)
+dataset$Label = matching$newLabel[which(matching$pic %in% rownames(dataset))]
 
 
